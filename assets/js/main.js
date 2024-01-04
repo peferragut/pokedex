@@ -1,5 +1,8 @@
 const pokemonList = document.getElementById('pokemonsOl');
-const loadMoreBtn = document.getElementById('loadMoreBtn');
+const nextPageBtn = document.getElementById('nextPage');
+const backBtn = document.getElementById('back');
+
+let page = 1;
 const limit = 12;
 let offset = 0;
 const maxRecords = 151;
@@ -22,13 +25,22 @@ function convertPokemonToLi(pokemon) {
 
 function loadPokemons(offset, limit) {
     pokeAPI.getPokemons(offset, limit).then((pokemons = []) => {
-        pokemonList.innerHTML += pokemons.map(convertPokemonToLi).join('');
+        pokemonList.innerHTML = pokemons.map(convertPokemonToLi).join('');
     });
 }
 
 loadPokemons(offset, limit);
+backBtn.disabled = true;
+backBtn.style.opacity = 0.3
 
-loadMoreBtn.addEventListener('click', () => {
+nextPageBtn.addEventListener('click', () => {
+    page++;
+
+    if (page == 2) {
+        backBtn.disabled = false;
+        backBtn.style.opacity = 1
+    }
+
     offset += limit;
     const pokemonsNextPage = offset + limit;
 
@@ -36,8 +48,27 @@ loadMoreBtn.addEventListener('click', () => {
         const newLimit = maxRecords - offset;
         loadPokemons(offset, newLimit);
 
-        loadMoreBtn.parentElement.removeChild(loadMoreBtn)
+        nextPageBtn.disabled = true;
+        nextPageBtn.style.opacity = 0.3;
     } else {
         loadPokemons(offset, limit);
     }
+});
+
+backBtn.addEventListener('click', () => {
+    page--;
+
+    if (page == Math.ceil(maxRecords / limit) - 1) {
+        nextPageBtn.disabled = false;
+        nextPageBtn.style.opacity = 1;
+    }
+
+    offset = offset - limit;
+    
+    if (page === 1) {
+        backBtn.disabled = true;
+        backBtn.style.opacity = 0.3;
+    }
+
+    loadPokemons(offset, limit);
 });

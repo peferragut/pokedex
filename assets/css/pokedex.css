@@ -134,6 +134,7 @@
     align-items: center;
     width: 100%;
     padding: 1rem;
+    gap: 5px;
 }
 
 .pagination button {
@@ -144,6 +145,10 @@
     background-color: #6c79db;
     border: none;
     border-radius: 1rem;
+}
+
+.pagination button:hover {
+    background-color: #3e457c;
 }
 
 @media screen and (min-width: 380px) {
