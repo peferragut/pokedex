@@ -87,6 +87,10 @@
     border-radius: 1rem;
 }
 
+.pokemon:hover {
+    cursor: pointer;
+}
+
 .pokemon .number {
     color: #000;
     opacity: .3;
@@ -163,7 +167,6 @@
         grid-template-columns: 1fr 1fr 1fr;
     }
 }
-
 
 @media screen and (min-width: 992px) {
     .pokemons {

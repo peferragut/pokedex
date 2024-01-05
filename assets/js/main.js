@@ -72,3 +72,9 @@ backBtn.addEventListener('click', () => {
 
     loadPokemons(offset, limit);
 });
+
+pokemonList.addEventListener('click', (e) => {
+    if (e.target.closest("li.pokemon")) {
+        console.log('This is a pokemon');
+    }
+});
