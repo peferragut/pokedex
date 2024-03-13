@@ -7,6 +7,18 @@ const limit = 12;
 let offset = 0;
 const MAX_RECORD = 151;
 
+function setTypeTextColor(type) {
+    brightColors = [
+        'electric', 
+        'grass',
+        'flying',
+        'bug',
+        'ice'
+    ]
+    
+    return brightColors.includes(type) ? '#000' : '#fff'
+}
+
 function convertPokemonToLi(pokemon) {
     return `
         <li class="pokemon ${pokemon.mainType}">
@@ -16,7 +28,7 @@ function convertPokemonToLi(pokemon) {
             <div class="detail">
                 <span class="name">${pokemon.name}</span>
                 <ol class="types">
-                    ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
+                    ${pokemon.types.map((type) => `<li class="type ${type}" style="color: ${setTypeTextColor(type)}">${type}</li>`).join('')}
                 </ol>
             </div>    
         </li>

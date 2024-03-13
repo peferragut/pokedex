@@ -14,19 +14,19 @@
     background-color: #F77176;
 }
 
-.poison{
+.poison {
     background-color: #AB6AC8;
 }
 
-.dragon{
+.dragon {
     background-color: #096DC3;
 }
 
-.ghost{
+.ghost {
     background-color: #5269AD;
 }
 
-.dark{
+.dark {
     background-color: #5B5265;
 }
 
@@ -35,14 +35,14 @@
 }
 
 .fire {
-    background-color: rgb(250, 139, 59);
+    background-color: #fa8b3b;
 }
 
 .fairy {
     background-color: #EC90E7;
 }
 
-.water{
+.water {
     background-color: #4D90D6;
 }
 
@@ -66,6 +66,6 @@
     background-color: #73CEBF;
 }
 
-.steel{
-    background-color: #5B8EA1
+.steel {
+    background-color: #5B8EA1;
 }
