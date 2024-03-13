@@ -1,6 +1,5 @@
 const pokemonList = document.getElementById('pokemonsOl');
-const nextPageBtn = document.getElementById('nextPage');
-const backBtn = document.getElementById('back');
+const loadMoreBtn = document.getElementById('loadMoreBtn');
 
 let page = 1;
 const limit = 12;
@@ -13,7 +12,8 @@ function setTypeTextColor(type) {
         'grass',
         'flying',
         'bug',
-        'ice'
+        'ice',
+        'rock'
     ]
     
     return brightColors.includes(type) ? '#000' : '#fff'
@@ -37,54 +37,26 @@ function convertPokemonToLi(pokemon) {
 
 function loadPokemons(offset, limit) {
     pokeAPI.getPokemons(offset, limit).then((pokemons = []) => {
-        pokemonList.innerHTML = pokemons.map(convertPokemonToLi).join('');
+        pokemonList.innerHTML += pokemons.map(convertPokemonToLi).join('');
     });
 }
 
-function gotoNextPage() {
-    page++;
-
-    if (page == 2) {
-        backBtn.disabled = false;
-        backBtn.style.opacity = 1
-    }
-
+function loadMorePokemons() {
     offset += limit;
-    const pokemonsNextPage = offset + limit;
+    const nextPokemons = offset + limit;
 
-    if (pokemonsNextPage >= MAX_RECORD) {
+    if (nextPokemons >= MAX_RECORD) {
         const newLimit = MAX_RECORD - offset;
         loadPokemons(offset, newLimit);
 
-        nextPageBtn.disabled = true;
-        nextPageBtn.style.opacity = 0.3;
+        loadMoreBtn.disabled = true;
+        loadMoreBtn.style.opacity = 0.3;
     } else {
-        loadPokemons(offset, limit);
+        loadPokemons(offset, limit)
     }
-}
-
-function gotoPrevPage() {
-    page--;
-
-    if (page == Math.ceil(MAX_RECORD / limit) - 1) {
-        nextPageBtn.disabled = false;
-        nextPageBtn.style.opacity = 1;
-    }
-
-    offset = offset - limit;
-    
-    if (page === 1) {
-        backBtn.disabled = true;
-        backBtn.style.opacity = 0.3;
-    }
-
-    loadPokemons(offset, limit);
 }
 
 loadPokemons(offset, limit);
-backBtn.disabled = true;
-backBtn.style.opacity = 0.3;
+loadMoreBtn.addEventListener('click', loadMorePokemons);
 
-nextPageBtn.addEventListener('click', gotoNextPage);
-backBtn.addEventListener('click', gotoPrevPage);
 
